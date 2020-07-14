@@ -25,6 +25,31 @@ Members.findByUsername= async function( email){
     }
 }
 
+Members.getNoOfUsers= async function( ){
+     const connection = await sql.getConnection();
+     await connection.beginTransaction();
+    try{
+        let data = {}
+        let admin = 1;
+        let status1 = "Pending"
+        let status2 = "Completed"
+        const result = await connection.query('SELECT * from profile where id !=?', [ admin])
+         const result1 = await connection.query('SELECT * from payment where status =?', [status1])
+         const result2 = await connection.query('SELECT * from payment where status =?', [status2])
+     //   const result = await connection.query('SELECT * from payment ',)
+         data.noOfUser =result[0].length
+         data.pendingPayment =result1[0].length
+         data.completedPayment =result2[0].length
+         data.allUser = result[0]
+     await connection.commit();
+        return data
+    }catch(err){
+       await connection.rollback();
+         console.log(err)
+         return err
+    }
+}
+
 Members.findAdminUser= async function(username){
     try{
         const result = await sql.query('SELECT * from member_authentication_table_admin where email=?', [ username])

@@ -291,7 +291,7 @@ exports.signInAdmin = async(req,res)=>{
                          const getnotifications = await Notifications.getNotifications(userDetails[0].id)
                         // const refarralDetails = await Members.findRefarral(userDetails[0].id)
                         // let status = "active"
-                        //  const activeInvestment = await Investments.findInvestment(userDetails[0].id, status)
+                        
                         //  totalValueActiveInvestment = 0
                         //  for( var i = 0; i < activeInvestment.length; i++){
                         //     totalValueActiveInvestment = parseFloat(totalValue) + parseFloat(activeInvestment[i])
@@ -300,6 +300,7 @@ exports.signInAdmin = async(req,res)=>{
                       //   user.totalValueActiveInvestment = totalValueActiveInvestment;
                          // user.noOfRefarrals = refarralDetails.length;
                        //   user.activeInvestment = activeInvestment.length;
+                      // user.numberofuser = numberofuser;
                           user.notificationLength = getnotifications.length
                           user.notifications = getnotifications
                             user.token = tokens;

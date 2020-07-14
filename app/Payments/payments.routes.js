@@ -14,5 +14,9 @@ module.exports = app =>{
      app.post("/payment", verifyToken, payments.create)
 
      app.get("/allpayment", verifyToken, payments.getAllPayment)
+
+      app.get("/rate", verifyToken, payments.getRate)
+
+     app.post("/rate", verifyToken, payments.createRate)
        
   }

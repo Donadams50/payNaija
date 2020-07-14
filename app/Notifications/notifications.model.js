@@ -35,6 +35,8 @@ Notifications.markRead= async function(userId){
     }
 }
 
+//create notifications
+
 Notifications.createNotifications = async function(userFor, isRead, message, userId){
     const connection = await sql.getConnection();
      await connection.beginTransaction();
@@ -55,6 +57,14 @@ Notifications.createNotifications = async function(userFor, isRead, message, use
         connection.release();
     }
  }
+
+
+
+
+
+
+
+
 
 
 
