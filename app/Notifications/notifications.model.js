@@ -63,7 +63,7 @@ Notifications.getNotifications= async function(userid, limit){
     try{  
          let data = {}
      let isRead = false
-     const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC LIMIT ', [userid])
+     const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC ', [userid])
      const result1 = await sql.query('SELECT * from notifications where userFor=? AND isRead=?', [userid])
 
       data.allNotifications = result[0];
