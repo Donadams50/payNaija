@@ -64,7 +64,7 @@ Notifications.getNotifications= async function(userid, limit){
          let data = {}
      let isRead = false
      const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC ', [userid])
-     const result1 = await sql.query('SELECT * from notifications where userFor=? AND isRead=?', [userid])
+     const result1 = await sql.query('SELECT * from notifications where userFor=? AND isRead=?', [userid, isRead])
 
       data.allNotifications = result[0];
       data.unReadLength = result1.length;
