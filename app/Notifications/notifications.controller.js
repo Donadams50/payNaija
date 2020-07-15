@@ -54,4 +54,3 @@ exports.getNotification = async(req, res) =>{
     
 }
 
-

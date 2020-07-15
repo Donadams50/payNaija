@@ -2,5 +2,5 @@ module.exports = {
    
     waitForConnections:true,
     connectionLimit:10000, 
-    queueLimit:10
+    queueLimit:50
 }; 

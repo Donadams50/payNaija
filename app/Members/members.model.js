@@ -7,7 +7,7 @@ const Members = function(members){
     this.password=members.password
     this.country= members.country,
     this.phoneNo= members.phoneNo,
-    this.fullName = members.full
+    this.fullName = members.fullName
     // this.walletBalance= members.walletBalance   
 }
 // find memebers by username or email
@@ -33,14 +33,20 @@ Members.getNoOfUsers= async function( ){
         let admin = 1;
         let status1 = "Pending"
         let status2 = "Completed"
+        limit = 5
         const result = await connection.query('SELECT * from profile where id !=?', [ admin])
          const result1 = await connection.query('SELECT * from payment where status =?', [status1])
          const result2 = await connection.query('SELECT * from payment where status =?', [status2])
+         const result3 = await connection.query('SELECT * from payment where status=?  ORDER BY id DESC LIMIT '+limit+'', [status1])
      //   const result = await connection.query('SELECT * from payment ',)
          data.noOfUser =result[0].length
-         data.pendingPayment =result1[0].length
-         data.completedPayment =result2[0].length
-         data.allUser = result[0]
+          data.allUser = result[0]
+         data.pendingPaymentCount =result1[0].length
+         data.pendingPayment =result1[0]
+         data.completedPaymentCount =result2[0].length
+         data.completedPayment =result2[0]
+         data.recentPayment = result3[0]
+        
      await connection.commit();
         return data
     }catch(err){

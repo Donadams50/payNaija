@@ -86,13 +86,14 @@ exports.create = async(req, res) =>{
 
 exports.getAllPayment = async(req, res) =>{
    
-    
+    console.log(req.user)
  // userId = req.user  
            
             try{
                      
                         const  numberofuser = await Members.getNoOfUsers()
-                        if (numberofuser.length>0){ 
+                        console.log(numberofuser)
+                        if (numberofuser){ 
                             
                             res.status(200).send(numberofuser)
                         }else{
@@ -100,7 +101,7 @@ exports.getAllPayment = async(req, res) =>{
                         }
                        
                   
-                    
+                 
                 
             }catch(err){
                 console.log(err)
@@ -164,8 +165,6 @@ exports.createRate = async(req, res) =>{
 }
 
 exports.getRate = async(req, res) =>{
-   
-    
 //   userId = req.user  
            
             try{
