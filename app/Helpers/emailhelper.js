@@ -90,7 +90,6 @@ const handlebarsOptions= {
   },
   viewPath:'./app/Helpers',
   extName:'.handlebars',
-
 };
     transport.use('compile', hbs(handlebarsOptions));
     const mailOptions = {

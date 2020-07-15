@@ -84,8 +84,8 @@ Payments.getPayment= async function(paymentId){
 //confirmPayment
 Payments.confirmPayment= async function(paymentId){
     try{
-         let status = "Received "
-        const result = await sql.query('update payment set status=?, where id=? ',[status ,paymentId])
+         let status = "Received"
+        const result = await sql.query('update payment set status=? where id=? ',[status ,paymentId])
         const data=result[0]
         console.log('-------------------------------------------------------CHECKING IF USERNAME EXISTS---------------')
         return data
