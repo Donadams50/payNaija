@@ -53,8 +53,8 @@ console.log(req.body)
                         member.password = await passwordUtils.hashPassword(req.body.password.toLowerCase());
                         const emailFrom = 'Pay  Naija    <noreply@paynaija.com>';
                         const subject = 'Succesful Registration link';                      
-                        const hostUrl = " 192.168.43.70:8080"
-                         const hostUrl2 = "http://localhost:8080" 
+                        const hostUrl = "zen-cori-144e1e.netlify.app/"
+                         const hostUrl2 = "https://zen-cori-144e1e.netlify.app/" 
                         //   const hostUrl = "localhost:8080"
                      //   const to = req.body.username;
                         const emailTo = req.body.email.toLowerCase();
@@ -340,8 +340,8 @@ exports.forgotPassword = async(req,res)=>{
            const emailFrom = 'Pay Naija  <noreply@paynaija.com>';
            const subject = 'Forgot password';                      
          // const hostUrl = " 192.168.43.70:8080"
-        const hostUrl2 = "http://192.168.88.189:5500" 
-        const hostUrl = "192.168.88.189:5500" 
+        const hostUrl2 = "https://zen-cori-144e1e.netlify.app/" 
+        const hostUrl = "zen-cori-144e1e.netlify.app/" 
          //  const to = req.body.username;
            const emailTo = req.body.email.toLowerCase();
            const link = `${hostUrl}/setnewpassword.html?email=${emailTo}&code=${code}`;

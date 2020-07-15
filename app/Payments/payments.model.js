@@ -65,7 +65,20 @@ Payments.getRate= async function(userid, limit){
     }
 }
 
+Payments.getPayment= async function(paymentId){
+    try{  
+        const result = await sql.query('SELECT * from payment where id=?  ', [paymentId])
 
+     
+     data = result[0]
+    
+     return data;
+             
+    }catch(err){
+        console.log(err)
+        return (err)
+    }
+}
 
 
 

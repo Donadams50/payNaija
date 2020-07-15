@@ -2,7 +2,7 @@ const Members = require('../Members/members.model.js')
 const Payments = require('../Payments/payments.model.js')
 const Notifications = require('../Notifications/notifications.model.js')
 
-
+// create new payment
 exports.create = async(req, res) =>{
     if (!req.body){
         res.status(400).send({message:"Content cannot be empty"});
@@ -83,7 +83,7 @@ exports.create = async(req, res) =>{
     
 }
 
-
+// get all payment
 exports.getAllPayment = async(req, res) =>{
    
     console.log(req.user)
@@ -113,7 +113,7 @@ exports.getAllPayment = async(req, res) =>{
     
 }
 
-
+ // create rate
 exports.createRate = async(req, res) =>{
     if (!req.body){
         res.status(400).send({message:"Content cannot be empty"});
@@ -163,7 +163,7 @@ exports.createRate = async(req, res) =>{
   
     
 }
-
+//get current rate
 exports.getRate = async(req, res) =>{
 //   userId = req.user  
            
@@ -186,6 +186,47 @@ exports.getRate = async(req, res) =>{
             }
         
     
+  
+    
+}
+
+// comfirm payment
+exports.comfirmPayment = async(req, res) =>{
+
+   try{
+         
+           
+               // processEmail(emailFrom, emailTo, subject, link, link2);
+                    
+                   // if(sentemail === true){
+                      const  paymentId = req.params.paymentId
+                      const getpayment =await Payments.getPayment(paymentId)
+                        const confirmpayment =await Payments.confirmPayment(paymentId)
+                        if (confirmpayment.affectedRows>0){ 
+                            let isRead = false;
+                            let userFor = getpayment[0].userId;
+                            let  userFrom = 1
+                            let message = 'Payment received it will be sent shortly' 
+                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userFrom)
+
+                            res.status(201).send({message:"Payment created"})
+                        }else{
+                            res.status(400).send({message:"Error while creating member "})
+                        }
+                  ///}
+           //       else{
+                //     res.status(500).send({message:"Error while creating member "})
+                //  console.log("Email not sent , network error");
+            //      }
+                       
+                  
+                    
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while creating pROFILE "})
+            }
+   
   
     
 }
