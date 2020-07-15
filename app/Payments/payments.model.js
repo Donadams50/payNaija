@@ -14,14 +14,15 @@ const Payments = function(payments){
                 this.accountName= payments.accountName,
                 this.status= payments.status,
                 this.amountNaira = payments.amountNaira ,  
-                this.amountDollar = payments.amountDollar 
+                this.amountDollar = payments.amountDollar ,
+                this.bankName = bankName
 }
 
 Payments.create= async function(newPayment, userId){
     try{
   
      console.log(newPayment)
-  const result = await sql.query('INSERT into payment SET  email=?, fName=?, lName=?, mName=? , phoneNo=? , country=?, stateZipCode=?, state=?, address=?, accountNumber=?, accountName=?, status=?, userId=?, amountNaira=?, amountDollar=?', [newPayment.email,  newPayment.fName, newPayment.lName, newPayment.mName, newPayment.phoneNo, newPayment.country, newPayment.stateZipCode, newPayment.state, newPayment.address, newPayment.accountNumber, newPayment.accountName, newPayment.status, userId, newPayment.amountNaira, newPayment.amountDollar])
+  const result = await sql.query('INSERT into payment SET  email=?, fName=?, lName=?, mName=? , phoneNo=? , country=?, stateZipCode=?, state=?, address=?, accountNumber=?, accountName=?, status=?, userId=?, amountNaira=?, amountDollar=?, bankName=?', [newPayment.email,  newPayment.fName, newPayment.lName, newPayment.mName, newPayment.phoneNo, newPayment.country, newPayment.stateZipCode, newPayment.state, newPayment.address, newPayment.accountNumber, newPayment.accountName, newPayment.status, userId, newPayment.amountNaira, newPayment.amountDollar, newPayment.bankName])
                 const data= result[0]
                 return data
               
@@ -80,6 +81,21 @@ Payments.getPayment= async function(paymentId){
     }
 }
 
+//confirmPayment
+Payments.confirmPayment= async function(paymentId){
+    try{
+         let status = "Received "
+        const result = await sql.query('update payment set status=?, where id=? ',[status ,paymentId])
+        const data=result[0]
+        console.log('-------------------------------------------------------CHECKING IF USERNAME EXISTS---------------')
+        return data
+    }catch(err){
+        console.log(err)
+        console.log('--------------------------------------------err--------------------------------------------------------')
+        return (err)
+    }
+}
 
 
+//allPayment
 module.exports = Payments

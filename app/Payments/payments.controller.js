@@ -31,7 +31,8 @@ exports.create = async(req, res) =>{
                 accountName: accountName,
                 status: "Pending",
                 amountNaira: amountNaira,
-                amountDollar: amountDollar
+                amountDollar: amountDollar,
+                bankName: bankName
                 // noOfRatings: 0,
                 // walletBalanceUsd:0.0,
                 // walletBalanceBtc: 0.0,
@@ -165,11 +166,12 @@ exports.createRate = async(req, res) =>{
 }
 //get current rate
 exports.getRate = async(req, res) =>{
-//   userId = req.user  
+  
            
             try{
                      
                         const getRate =await Payments.getRate()
+                        console.log(getRate)
                         if (getRate.length>0){ 
                             
                             res.status(200).send(getRate)
@@ -229,4 +231,36 @@ exports.comfirmPayment = async(req, res) =>{
    
   
     
+}
+
+//get payment by id
+exports.allPayment = async(req, res) =>{
+  
+           
+    try{
+               const allPayment= {}
+                const getpayment =await Payments.getPayment(req.params.paymentId)
+
+                console.log(getpayment)
+                if (getpayment.length>0){ 
+                const getpaymet =await Payments.getPayment(req.params.paymentId)
+                    const senderDetails =await Members.findById(getpayment[0].userId)
+                        allPayment.receipientDetails = getpayment[0];
+                         allPayment.senderDetails = senderDetails[0]
+                    res.status(200).send(allPayment)
+                }else{
+                    res.status(400).send({message:"Error while getting rate "})
+                }
+               
+          
+            
+        
+    }catch(err){
+        console.log(err)
+        res.status(500).send({message:"Error while getting rate "})
+    }
+
+
+
+
 }
