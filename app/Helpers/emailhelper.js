@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const hbs = require('nodemailer-express-handlebars')
 let responseGot = {}
 
-exports.emailUtility= async (emailFrom, emailTo, emailSubject, emailText, emailText2 ) =>{
+exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, emailLink2, text  ) =>{
    
         let resp= await wrapedSendMail();
          return resp;
@@ -14,7 +14,7 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject, emailText, emailT
         auth: {
             // should be replaced with real sender's account
               user: 'gigdonadams50@gmail.com',
-            pass: 'mathematics5@@'        
+              pass: 'mathematics5@@'       
         },
         });
   const handlebarsOptions= {
@@ -34,11 +34,13 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject, emailText, emailT
             from: emailFrom,
             to: emailTo,         
             subject:emailSubject,
-            text:emailText,
+            text:emailLink,
             template: 'index',
             context: {
                 name: emailTo,
-                link:emailText
+                link:emailLink,
+                link2: emailLink2,
+                message: text
                
             }
         }; 

@@ -57,10 +57,11 @@ console.log(req.body)
                          const hostUrl2 = "https://zen-cori-144e1e.netlify.app/" 
                         //   const hostUrl = "localhost:8080"
                      //   const to = req.body.username;
+                    const   text = "e're excited to have you get started. Your Registration to pay naija was successful. You can start sending money abroad with out stress "
                         const emailTo = req.body.email.toLowerCase();
                      const link = `${hostUrl}`;
                          const link2 = `${hostUrl2}`;
-                         processEmail(emailFrom, emailTo, subject, link, link2);
+                         processEmail(emailFrom, emailTo, subject, link, link2, text);
                     
                    // if(sentemail === true){
                      
@@ -346,6 +347,7 @@ exports.forgotPassword = async(req,res)=>{
            const emailTo = req.body.email.toLowerCase();
            const link = `${hostUrl}/setnewpassword.html?email=${emailTo}&code=${code}`;
            const link2 = `${hostUrl2}/setnewpassword.html?email=${emailTo}&code=${code}`;
+         //  const text = " "
              processEmail2(emailFrom, emailTo, subject, link, link2);
            // console.log(sentemail)
     //   if(sentemail === true){
@@ -494,11 +496,11 @@ exports.getUserDetails = async(req,res)=>{
 
 
 // process email one
-async function processEmail(emailFrom, emailTo, subject, text, text2 ){
+async function processEmail(emailFrom, emailTo, subject, link, link2, text ){
     try{
         //create org details
         // await delay();
-       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, text, text2);
+       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, text);
      //  console.log(sendmail)
         return sendmail
     }catch(err){
@@ -508,11 +510,11 @@ async function processEmail(emailFrom, emailTo, subject, text, text2 ){
 
 }
 // process email two
-async function processEmail2(emailFrom, emailTo, subject, text, text2 ){
+async function processEmail2(emailFrom, emailTo, subject, link, link2 ){
     try{
         //create org details
         // await delay();
-       const sendmail =  await sendemail.emaiforgotPassword(emailFrom, emailTo, subject, text, text2);
+       const sendmail =  await sendemail.emaiforgotPassword(emailFrom, emailTo, subject, link, link2);
      //  console.log(sendmail)
         return sendmail
     }catch(err){

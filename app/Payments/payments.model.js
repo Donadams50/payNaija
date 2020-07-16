@@ -97,5 +97,19 @@ Payments.confirmPayment= async function(paymentId){
 }
 
 
+Payments.completePayment= async function(paymentId, imageName){
+    try{
+         let status = "Completed"
+        const result = await sql.query('update payment set status=?, imageUrl=? where id=? ',[status ,imageName ,paymentId])
+        const data=result[0]
+        console.log('-------------------------------------------------------CHECKING IF USERNAME EXISTS---------------')
+        return data
+    }catch(err){
+        console.log(err)
+        console.log('--------------------------------------------err--------------------------------------------------------')
+        return (err)
+    }
+}
+
 //allPayment
 module.exports = Payments

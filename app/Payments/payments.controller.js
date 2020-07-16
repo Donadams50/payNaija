@@ -1,7 +1,7 @@
 const Members = require('../Members/members.model.js')
 const Payments = require('../Payments/payments.model.js')
 const Notifications = require('../Notifications/notifications.model.js')
-
+const sendemail = require('../Helpers/emailhelper.js');
 // create new payment
 exports.create = async(req, res) =>{
     if (!req.body){
@@ -54,8 +54,10 @@ exports.create = async(req, res) =>{
                         if (savedpayment.insertId>0){ 
                             let isRead = false;
                             let userFor = 1;
-                            let message = 'New payment request from  '+req.user.fullName+'' 
-                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userId)
+                            let message = 'New payment request from  '+req.user.fullName+''
+                            let title = ' New payment request from  '+req.user.fullName+' ' 
+                            let paymentId = savedpayment.insertId
+                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userId, title , paymentId)
 
                             res.status(201).send({message:"Payment created"})
                         }else{
@@ -192,8 +194,8 @@ exports.getRate = async(req, res) =>{
     
 }
 
-// comfirm payment
-exports.comfirmPayment = async(req, res) =>{
+// confirm payment
+exports.confirmPayment = async(req, res) =>{
 
    try{
          
@@ -208,13 +210,81 @@ exports.comfirmPayment = async(req, res) =>{
                             let isRead = false;
                             let userFor = getpayment[0].userId;
                             let  userFrom = 1
-                            let message = 'Payment received it will be sent shortly' 
-                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userFrom)
+                            let message = 'Payment received it will be sent shortly'
+                            let title =  'Received'
+                            
+                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userFrom, title, paymentId)
 
                             res.status(201).send({message:"Payment created"})
                         }else{
                             res.status(400).send({message:"Error while creating member "})
                         }
+                  ///}
+           //       else{
+                //     res.status(500).send({message:"Error while creating member "})
+                //  console.log("Email not sent , network error");
+            //      }
+                       
+                  
+                    
+                
+            }catch(err){
+                console.log(err)
+                res.status(500).send({message:"Error while creating pROFILE "})
+            }
+   
+  
+    
+}
+
+
+
+// complete payment
+exports.completePayment = async(req, res) =>{
+
+   try{
+    //   console.log(req.body)
+     const  random = Math.random().toString(36).slice(-8);
+        console.log(req.files.files.name)
+        console.log(req.files.files)
+        console.log(req.files.files.data)
+       if (!req.files){
+        imgName = ""
+        }
+         else{
+            const file = req.files.files;
+             imgName = random+req.files.files.name;
+             file.mv('public/images/'+imgName);
+         }
+           
+               // processEmail(emailFrom, emailTo, subject, link, link2);
+                      const  paymentId = req.params.paymentId
+                      const getpayment =await Payments.getPayment(paymentId)
+                      const senderDetails =await Members.findById(getpayment[0].userId)
+                        const completepayment =await Payments.completePayment(paymentId, imgName)
+                        
+                        if (completepayment.affectedRows>0){ 
+                            let isRead = false;
+                            let userFor = getpayment[0].userId;
+                            let  userFrom = 1
+                            let message = 'Payment has been sent succesfully to '+getpayment[0].fName+'  '+getpayment[0].lName+'' 
+                            let title = 'Completed'
+                            const createnotification = await Notifications.createNotifications( userFor, isRead, message, userFrom, title, paymentId)
+                                  const emailFrom = 'Pay  Naija    <noreply@paynaija.com>';
+                        const subject = 'Successful payment abroad';                      
+                        const hostUrl = "zen-cori-144e1e.netlify.app/"
+                         const hostUrl2 = "https://zen-cori-144e1e.netlify.app/" 
+                        //   const hostUrl = "localhost:8080"
+                       const   text = ' Your payment has been sent succesfully to '+getpayment[0].fName+'  '+getpayment[0].lName+' '
+                       const emailTo = senderDetails[0].email;
+                       const link = `${hostUrl}`;
+                         const link2 = `${hostUrl2}`;
+                                    processEmail(emailFrom, emailTo, subject, link, link2, text)
+                            res.status(200).send({message:"Sent succesfully"})
+                        }else{
+                            res.status(400).send({message:"Error while completing payment "})
+                        }
+                    
                   ///}
            //       else{
                 //     res.status(500).send({message:"Error while creating member "})
@@ -262,5 +332,20 @@ exports.allPayment = async(req, res) =>{
 
 
 
+
+}
+
+
+async function processEmail(emailFrom, emailTo, subject, link, link2, text ){
+    try{
+        //create org details
+        // await delay();
+       const sendmail =  await sendemail.emailUtility(emailFrom, emailTo, subject, link, link2, text);
+     //  console.log(sendmail)
+        return sendmail
+    }catch(err){
+        console.log(err)
+        return err
+    }
 
 }

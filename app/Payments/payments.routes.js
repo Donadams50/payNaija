@@ -19,7 +19,9 @@ module.exports = app =>{
 
      app.post("/rate", verifyToken, payments.createRate)
 
-     app.post("/confirmpayment/:paymentId", verifyToken, payments.comfirmPayment)
+     app.post("/confirmpayment/:paymentId", verifyToken, payments.confirmPayment)
+
+     app.post("/completepayment/:paymentId", verifyToken, payments.completePayment)
     
      app.get("/payment/:paymentId", verifyToken, payments.allPayment)
   }

@@ -37,13 +37,13 @@ Notifications.markRead= async function(userId){
 
 //create notifications
 
-Notifications.createNotifications = async function(userFor, isRead, message, userId){
+Notifications.createNotifications = async function(userFor, isRead, message, userId, title, paymentId){
     const connection = await sql.getConnection();
      await connection.beginTransaction();
     try
     {
         //console.log(newMember)
-         const result = await connection.query('INSERT into notifications SET userFor=?, message=?, isRead=?, userFrom=? ', [userFor,message, isRead, userId])
+         const result = await connection.query('INSERT into notifications SET userFor=?, message=?, isRead=?, userFrom=? , title=? , paymentId=?', [userFor,message, isRead, userId, title, paymentId])
          console.log('---------------------------------referral created------------------------------------------------------------------------------------------------------')
              // create requests
            
@@ -57,14 +57,6 @@ Notifications.createNotifications = async function(userFor, isRead, message, use
         connection.release();
     }
  }
-
-
-
-
-
-
-
-
 
 
 
@@ -86,6 +78,22 @@ Notifications.getNotifications= async function(userid, limit){
     }
 }
 
+Notifications.getNotificationsDetails= async function(id){
+    try{  
+      
+ 
+     
+     const result1 = await sql.query('SELECT * from notifications where id=?', [id])
+
+ 
+     const data = result1[0];
+     return data;
+             
+    }catch(err){
+        console.log(err)
+        return (err)
+    }
+}
 
 
 

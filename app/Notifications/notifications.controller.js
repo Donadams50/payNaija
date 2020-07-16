@@ -1,6 +1,6 @@
 const Members = require('../Members/members.model.js')
 const Notifications = require('../Notifications/notifications.model.js')
-
+const Payments = require('../Payments/payments.model.js')
 
 exports.markRead = async(req, res) =>{
 
@@ -31,16 +31,14 @@ exports.markRead = async(req, res) =>{
 exports.getNotification = async(req, res) =>{
 
     try{
+
         userId= req.user.id 
       
 
          const getNotification = await Notifications.getNotifications(userId)
-         if(getNotification > 0){
+        console.log(getNotification)
             res.status(200).send(getNotification)
-         }
-         else{
-            res.status(400).send({message:"Service not available"})
-         }
+        
          
           
         }
@@ -54,3 +52,30 @@ exports.getNotification = async(req, res) =>{
     
 }
 
+exports.getNotificationDetails = async(req, res) =>{
+
+    try{
+
+        userId= req.user.id 
+      notificationDetails = {}
+
+         const getNotification = await Notifications.getNotificationsDetails(req.params.id)
+         console.log(getNotification[0])
+         const getpayment =await Payments.getPayment(getNotification[0].paymentId)
+         notificationDetails.notification = getNotification[0]
+         notificationDetails.imageUrl = getpayment[0].imageUrl
+        console.log(notificationDetails)
+            res.status(200).send(notificationDetails)
+        
+         
+          
+        }
+       
+    catch(err){
+      console.log(err)
+        res.status(500).send({message:"issues while marking as read"})
+        
+    }
+  
+    
+}

@@ -25,6 +25,7 @@ const axios = require('axios')
  
   require("./app/Payments/payments.routes.js")(app)
 
+  require("./app/Notifications/notifications.routes.js")(app)
 
 // app.get('/', async(req, res) =>{
 //     try{

@@ -11,6 +11,8 @@ module.exports = app =>{
        // to get all notification for user
      app.get("/notification", verifyToken, notifications.getNotification)
 
+     app.get("/notification/:id", verifyToken, notifications.getNotificationDetails)
+
      app.post("/markread", verifyToken, notifications.markRead)
        
   }
