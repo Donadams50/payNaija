@@ -58,7 +58,16 @@ exports.create = async(req, res) =>{
                             let title = ' New payment request from  '+req.user.fullName+' ' 
                             let paymentId = savedpayment.insertId
                             const createnotification = await Notifications.createNotifications( userFor, isRead, message, userId, title , paymentId)
-
+                        const subject = 'New payment request';                      
+                        const hostUrl = "zen-cori-144e1e.netlify.app/"
+                         const hostUrl2 = "https://zen-cori-144e1e.netlify.app/" 
+                        //   const hostUrl = "localhost:8080"
+                       const   text = ' A new payment has been submmited by '+req.user.fullName+', please log in to the admin dashboard to follow up'
+                       const emailTo = "seyiekundayo879@gmail.com";
+                       const emailFrom = 'Pay  Naija    <noreply@paynaija.com>';
+                       const link = `${hostUrl}`;
+                         const link2 = `${hostUrl2}`;
+                                    processEmail(emailFrom, emailTo, subject, link, link2, text)
                             res.status(201).send({message:"Payment created"})
                         }else{
                             res.status(400).send({message:"Error while creating member "})
