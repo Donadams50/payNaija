@@ -24,7 +24,7 @@ Notifications.getNotifications= async function(userId){
 Notifications.markRead= async function(userId){
     try{
          let isRead = true
-        const result = await sql.query('update notifications set isRead=? where userFor=?',[isRead,userId])
+        const result = await sql.query('update notifications set isRead=? where userFor=?',[isRead, userId])
         const data=result[0]
         console.log('-------------------------------------------------------CHECKING IF USERNAME EXISTS---------------')
         return data

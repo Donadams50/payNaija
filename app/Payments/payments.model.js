@@ -15,7 +15,7 @@ const Payments = function(payments){
                 this.status= payments.status,
                 this.amountNaira = payments.amountNaira ,  
                 this.amountDollar = payments.amountDollar ,
-                this.bankName = bankName
+                this.bankName = payments.bankName
 }
 
 Payments.create= async function(newPayment, userId){

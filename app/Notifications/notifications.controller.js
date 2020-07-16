@@ -61,9 +61,14 @@ exports.getNotificationDetails = async(req, res) =>{
 
          const getNotification = await Notifications.getNotificationsDetails(req.params.id)
          console.log(getNotification[0])
+         if(getNotification[0].title === 'Completed'){
          const getpayment =await Payments.getPayment(getNotification[0].paymentId)
+          notificationDetails.imageUrl = getpayment[0].imageUrl
+         }else{
+               notificationDetails.imageUrl = " "
+         }
          notificationDetails.notification = getNotification[0]
-         notificationDetails.imageUrl = getpayment[0].imageUrl
+        
         console.log(notificationDetails)
             res.status(200).send(notificationDetails)
         
