@@ -6,8 +6,8 @@ module.exports = app =>{
       
      
     
-  
     
+
     //    to get all plan
     //    app.get("/notification", verifyToken, investments.getPlan)
 
@@ -21,7 +21,9 @@ module.exports = app =>{
 
      app.post("/confirmpayment/:paymentId", verifyToken, payments.confirmPayment)
 
-     app.post("/completepayment/:paymentId", verifyToken, payments.completePayment)
-    
+     app.post("/completepayment/:paymentId",   payments.completePayment)
+
+     app.put("/completepayment/:paymentId",   payments.updatePayment)
+
      app.get("/payment/:paymentId", verifyToken, payments.allPayment)
   }

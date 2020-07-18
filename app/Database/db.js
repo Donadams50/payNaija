@@ -15,7 +15,6 @@ dotenv.config();
 //     waitForConnections:dbConfig.waitForConnections,
 //     conectionLimit:dbConfig.conectionLimit,
 //     queueLimit:dbConfig.queueLimit
-
 // }
  process.env.CLEARDB_DATABASE_URL
 );

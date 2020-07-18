@@ -58,19 +58,52 @@ Notifications.createNotifications = async function(userFor, isRead, message, use
     }
  }
 
+ Notifications.createNotificationsComplete = async function(userFor, isRead, message, userId, title, paymentId, imgUrl){
+    const connection = await sql.getConnection();
+     await connection.beginTransaction();
+    try
+    {
+        //console.log(newMember)
+         const result = await connection.query('INSERT into notifications SET userFor=?, message=?, isRead=?, userFrom=? , title=? , paymentId=?, imageUrl=?', [userFor,message, isRead, userId, title, paymentId, imgUrl])
+         console.log('---------------------------------referral created------------------------------------------------------------------------------------------------------')
+             // create requests
+           
+             await connection.commit();
+             return result[0]     
+    }catch(err){
+         await connection.rollback();
+         console.log(err)
+         return err
+    }finally{
+        connection.release();
+    }
+ }
 
 
 
-Notifications.getNotifications= async function(userid, limit){
+
+Notifications.getNotifications= async function(userid){
     try{  
+        let limit = 5
          let data = {}
      let isRead = false
-     const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC ', [userid])
+      if(userid === 1){
+          const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC LIMIT '+limit+'', [userid])
      const result1 = await sql.query('SELECT * from notifications where userFor=? AND isRead=?', [userid, isRead])
 
       data.allNotifications = result[0];
       data.unReadLength = result1[0].length;
      return data;
+
+     }else{
+const result = await sql.query('SELECT * from notifications where userFor=? ORDER BY id DESC ', [userid])
+     const result1 = await sql.query('SELECT * from notifications where userFor=? AND isRead=?', [userid, isRead])
+
+      data.allNotifications = result[0];
+      data.unReadLength = result1[0].length;
+     return data;
+     }
+     
              
     }catch(err){
         console.log(err)

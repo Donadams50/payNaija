@@ -19,18 +19,46 @@ const axios = require('axios')
 
 
 
-
-
   require("./app/Members/members.routes.js")(app)
  
   require("./app/Payments/payments.routes.js")(app)
 
   require("./app/Notifications/notifications.routes.js")(app)
 
-// app.get('/', async(req, res) =>{
+  // require('./app/Cloudinary/cloudinary.config.js')
+  const multer = require("multer")
+const cloudinary = require("cloudinary");
+//const  { cloudinaryStorage } = require("multer-storage-cloudinary");
+
+// const   cloudinary = require("multer-storage-cloudinary");
+
+// const storage =  cloudinary({
+//     folder: "paynaija",
+//     allowedFormats: ["jpg", "png"],
+//     transformation: [{ width: 500, height: 500, crop: "limit" }],
+//     cloudinary: cloudinary
+   
+// });
+// const parser = multer({
+//     // storage: multer.diskStorage({}),
+//     storage: storage,
+//     // fileFilter:(req,file, cb)=>{
+//     //     if(!file.mimetype.match(/jpe|jpeg|png|gif$i/)){
+//     //         cb(new Error('file is not supported'), false)
+//     //         return
+//     //     }
+//     //     cb(null, true )
+//     // }
+// })
+
+   // const upload = require('./app/Cloudinary/multer.js')
+
+// app.post('/image', parser.single('image'), async(req, res) =>{
 //     try{
       
-//         res.status(200).send("hi Olasumbo")
+//       console.log(req.file)
+//         res.status(200).send(req.file)
+//         //res.json(req.file);
 //     }catch(err){
 //         console.log(err)
 //         res.status(500).send({message:"Error while retrieving config"}) 
