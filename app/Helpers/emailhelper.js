@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer"); 
 const hbs = require('nodemailer-express-handlebars')
 let responseGot = {}
+const dotenv=require('dotenv');
+dotenv.config();
 
 exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, emailLink2, text  ) =>{
    
@@ -13,8 +15,8 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, email
             service: 'gmail',
         auth: {
             // should be replaced with real sender's account
-              user: 'gigdonadams50@gmail.com',
-              pass: 'mathematics5@@'       
+              user: process.env.emaillUser,
+              pass: process.env.emailPassword       
         },
         });
   const handlebarsOptions= {
@@ -79,8 +81,8 @@ async function wrapedSendMail(){
         service: 'gmail',
     auth: {
         // should be replaced with real sender's account
-        user: 'gigdonadams50@gmail.com',
-            pass: 'mathematics5@@'       
+       user: process.env.emaillUser,
+       pass: process.env.emailPassword    
     },
     });
 const handlebarsOptions= {
@@ -142,8 +144,8 @@ async function wrapedSendMail(){
         service: 'gmail',
     auth: {
         // should be replaced with real sender's account
-        user: 'gigdonadams50@gmail.com',
-        pass: 'mathematics5@@'                
+        user: process.env.emaillUser,
+              pass: process.env.emailPassword               
     },
     });
 const handlebarsOptions= {
@@ -206,8 +208,8 @@ async function wrapedSendMail(){
         service: 'gmail',
     auth: {
         // should be replaced with real sender's account
-           user: 'gigdonadams50@gmail.com',
-            pass: 'mathematics5@@'                
+          user: process.env.emaillUser,
+              pass: process.env.emailPassword               
     },
     });
 const handlebarsOptions= {
