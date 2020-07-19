@@ -15,8 +15,8 @@ exports.emailUtility= async (emailFrom, emailTo, emailSubject,  emailLink, email
             service: 'gmail',
         auth: {
             // should be replaced with real sender's account
-              user: process.env.emaillUser,
-              pass: process.env.emailPassword       
+              user: 'titanskayar@gmail.com',
+              pass: 'kayar@231'       
         },
         });
   const handlebarsOptions= {
@@ -81,8 +81,8 @@ async function wrapedSendMail(){
         service: 'gmail',
     auth: {
         // should be replaced with real sender's account
-       user: process.env.emaillUser,
-       pass: process.env.emailPassword    
+       user: 'titanskayar@gmail.com',
+       pass: 'kayar@231'    
     },
     });
 const handlebarsOptions= {
