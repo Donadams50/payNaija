@@ -21,9 +21,9 @@ module.exports = app =>{
 
      app.post("/confirmpayment/:paymentId", verifyToken, payments.confirmPayment)
 
-     app.post("/completepayment/:paymentId", verifyToken, upload.single("image") ,  payments.completePayment)
+     app.post("/completepayment/:paymentId", verifyToken, upload.single("files") ,  payments.completePayment)
 
-     app.put("/completepayment/:paymentId", verifyToken, upload.single("image") ,  payments.updatePayment)
+     app.put("/completepayment/:paymentId", verifyToken, upload.single("files") ,  payments.updatePayment)
 
      app.get("/payment/:paymentId", verifyToken, payments.allPayment)
   }
