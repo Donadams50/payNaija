@@ -252,21 +252,21 @@ exports.confirmPayment = async(req, res) =>{
 exports.completePayment = async(req, res) =>{
 
    try{
-    //   console.log(req.body)
-     const  random = Math.random().toString(36).slice(-8);
-      //  console.log(req)
-  //      console.log(req)
+    //   console.log(req.file.url)
+    //  const  random = Math.random().toString(36).slice(-8);
+  
       //  console.log(req.files.files.data)
-        if (!req.files){
-         imgName = ""
-         }
-      else{
-             const file = req.files.files;
-             imgName = random+req.files.files.name;
-             file.mv('public/images/'+imgName);
-          }
+    //     if (!req.files){
+    //      imgName = ""
+    //      }
+    //   else{
+    //          const file = req.files.files;
+    //          imgName = random+req.files.files.name;
+    //          file.mv('public/images/'+imgName);
+    //       }
            
                // processEmail(emailFrom, emailTo, subject, link, link2);
+                    const imgName = req.file.url
                       const  paymentId = req.params.paymentId
                       const getpayment =await Payments.getPayment(paymentId)
                       const senderDetails =await Members.findById(getpayment[0].userId)
@@ -316,20 +316,10 @@ exports.completePayment = async(req, res) =>{
 exports.updatePayment = async(req, res) =>{
 
     try{
-     //   console.log(req.body)
-      const  random = Math.random().toString(36).slice(-8);
-       //  console.log(req)
-   //      console.log(req)
-       //  console.log(req.files.files.data)
-         if (!req.files){
-          imgName = ""
-          }
-       else{
-              const file = req.files.files;
-              imgName = random+req.files.files.name;
-              file.mv('public/images/'+imgName);
-           }
-            
+     
+         console.log(req.file.url)
+  const imgName = req.file.url
+       
                 // processEmail(emailFrom, emailTo, subject, link, link2);
                        const  paymentId = req.params.paymentId
                        const getpayment =await Payments.getPayment(paymentId)

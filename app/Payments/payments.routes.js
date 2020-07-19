@@ -4,8 +4,8 @@ module.exports = app =>{
      const jwtTokenUtils = require('../Helpers/jwtTokenUtils')
      const { verifyToken } = jwtTokenUtils;
       
-     
-    
+     require('../Cloudinary/cloudinary.js')
+    const upload = require('../Cloudinary/multer.js');
     
 
     //    to get all plan
@@ -21,9 +21,9 @@ module.exports = app =>{
 
      app.post("/confirmpayment/:paymentId", verifyToken, payments.confirmPayment)
 
-     app.post("/completepayment/:paymentId",   payments.completePayment)
+     app.post("/completepayment/:paymentId", verifyToken, upload.single("image") ,  payments.completePayment)
 
-     app.put("/completepayment/:paymentId",   payments.updatePayment)
+     app.put("/completepayment/:paymentId", verifyToken, upload.single("image") ,  payments.updatePayment)
 
      app.get("/payment/:paymentId", verifyToken, payments.allPayment)
   }
