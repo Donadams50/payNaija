@@ -252,7 +252,7 @@ exports.confirmPayment = async(req, res) =>{
 exports.completePayment = async(req, res) =>{
 
    try{
-    //   console.log(req.file.url)
+       console.log(req.file.url)
     //  const  random = Math.random().toString(36).slice(-8);
   
       //  console.log(req.files.files.data)

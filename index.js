@@ -10,7 +10,7 @@ app.use(cors());
 const path = require('path')
 // const fileUpload=require('express-fileupload')
 // app.use(fileUpload())
-// set static folder
+// set static
 app.use(express.static(path.join(__dirname, 'public')));
 const axios = require('axios')
 
