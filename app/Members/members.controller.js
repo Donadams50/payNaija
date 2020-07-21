@@ -32,7 +32,7 @@ console.log(req.body)
                 email:email.toLowerCase(), 
                 password: password,
                 isVerified: false,
-                code: 'Paynaija'+CodeNewUser+'',
+                code: 'PN-'+CodeNewUser+'',
                 phoneNo: phoneNo,
                 country: country,
                 fullName: fullName
