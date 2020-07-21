@@ -20,7 +20,7 @@ console.log(req.body)
     const {   email, password , country, phoneNo, fullName} = req.body;
   //  let {myrefCode} = req.query;
 
-    // const refarralCodeNewUser = getReferralCode()
+     const CodeNewUser = getReferralCode()
     // const refarralLink = 'http://localhost:8080/?refarralCode='+refarralCodeNewUser+''
     if ( email &&password && country && phoneNo && fullName){
         if ( email==="" || password==="" || phoneNo==="" || country==="" || fullName ==="" ){
@@ -32,7 +32,7 @@ console.log(req.body)
                 email:email.toLowerCase(), 
                 password: password,
                 isVerified: false,
-                code: uuid.v4(),
+                code: 'Paynaija'+CodeNewUser+'',
                 phoneNo: phoneNo,
                 country: country,
                 fullName: fullName
@@ -528,7 +528,7 @@ async function processEmail2(emailFrom, emailTo, subject, link, link2 ){
 function getReferralCode(){
     var numbers = "0123456789";
 
-    var chars= "abcdefghijklmnopqrstuvwxyz";
+    var chars= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   
     var code_length = 6;
     var number_count = 3;
